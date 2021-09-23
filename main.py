@@ -34,9 +34,9 @@ def train(epoch, dataloader, net, optimizer, m, alpha):
 
         loss.backward()
         optimizer.step()
-        accum_loss += loss.data[0]
+        accum_loss += loss.item()
 
-        print(f'[{epoch}][{i}/{len(dataloader)}] loss: {loss.data[0]:.4f}')
+        print(f'[{epoch}][{i}/{len(dataloader)}] loss: {loss.item():.4f}')
     return accum_loss / len(dataloader)
 
 
@@ -48,7 +48,7 @@ def test(epoch, dataloader, net, m, alpha):
 
         b = net(img)
         loss = hashing_loss(b, cls, m, alpha)
-        accum_loss += loss.data[0]
+        accum_loss += loss.item()
 
     accum_loss /= len(dataloader)
     print(f'[{epoch}] val loss: {accum_loss:.4f}')
